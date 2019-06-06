@@ -83,8 +83,7 @@ stages:
               action: deploy
               namespace: $(k8sNamespace)
               manifests: $(System.ArtifactsDirectory)/manifests/*
-              containers: |
-                acrchallenge.azurecr.io/$(imageRepository):$(tag)
+              containers: 'acrchallenge.azurecr.io/$(imageRepository):$(tag)'
 
           - task: KubernetesManifest@0
             displayName: Patch the deployment environment variables
