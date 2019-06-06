@@ -83,7 +83,10 @@ stages:
               action: deploy
               namespace: $(k8sNamespace)
               manifests: $(System.ArtifactsDirectory)/manifests/*
-              containers: 'acrchallenge.azurecr.io/$(imageRepository):$(tag)'
+              imagePullSecrets: | # this automatically injects the imagePullSecret into your Kubernetes deployment configuration
+                acr-auth
+              containers: |
+                $(imageRepository):$(tag)
 
           - task: KubernetesManifest@0
             displayName: Patch the deployment environment variables
